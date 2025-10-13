@@ -1,0 +1,28 @@
+{
+	"favorite_books": [
+		{
+			"Title": "The Power of Habit",
+			"Author": "Charles Duhigg",
+			"Genre": "Self-Help",
+			"Year": "2012"
+		},
+		{
+			"Title": "Sensemaking",
+			"Author": "Christian Madsbjerg",
+			"Genre": "Business",
+			"Year": "2017"
+		},
+		{
+			"Title": "Everything Is Obvious: Once You Know the Answer",
+			"Author": "Duncan J. Watts",
+			"Genre": "Sociology",
+			"Year": "2011"
+		},
+		{
+			"Title": "Stumbling on Happiness",
+			"Author": "Daniel Gilbert",
+			"Genre": "Psychology",
+			"Year": "2006"
+		}
+	]
+}

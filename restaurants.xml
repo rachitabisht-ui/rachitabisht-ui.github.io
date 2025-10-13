@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE restaurants SYSTEM "restaurants.dtd">
+<restaurants>
+    <restaurant>
+        <name>Chez Panisse</name>
+        <cuisine>California French</cuisine>
+        <city>Berkeley</city>
+        <rating>4.5</rating>
+        <priceRange>$$$$</priceRange>
+    </restaurant>
+    <restaurant>
+        <name>Gather</name>
+        <cuisine>American</cuisine>
+        <city>Berkeley</city>
+        <rating>4.3</rating>
+        <priceRange>$$$</priceRange>
+    </restaurant>
+    <restaurant>
+        <name>Great China</name>
+        <cuisine>Chinese</cuisine>
+        <city>Berkeley</city>
+        <rating>4.0</rating>
+        <priceRange>$$</priceRange>
+    </restaurant>
+    <restaurant>
+        <name>La Note</name>
+        <cuisine>French</cuisine>
+        <city>Berkeley</city>
+        <rating>4.2</rating>
+        <priceRange>$$</priceRange>
+    </restaurant>
+</restaurants>

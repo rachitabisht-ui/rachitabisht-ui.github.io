@@ -1,50 +1,916 @@
-<!DOCTYPE HTML>  
-<html>  
-    <header>
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="table_style.css">
-        <title>Welcome To My Zone</title>
-    </header>
-    <body>  
-        <!---Navigation--->
-        <!--This section of code defines the navigation bar at the top of the page.  The classes used here are defined in the style.css file.-->
-        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-            <div class="container">
-                <!--This code defines the "My Webpage" link in the top left corner of the navigation pane-->
-                <a class="navbar-brand" href="./index.html">My Space</a>
-                <!--This code defines the "List" link in the top right corner of the navigation pane-->
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="./list.html">List</a></li>
-                </ul>
-            </div>
-        </nav>
-        <!--This section defines the middle section of the webpage-->
-        <header class="masthead bg-primary text-white text-center">
-            <div class="container d-flex align-items-center flex-column">
-                
-                <!-- This code is for the student name-->
-                <h1 class="masthead-heading text-uppercase mb-0">Rachita Bisht</h1>
-                <!--This code creates the two lines separating the student name from the subtitle-->
-                <div class="divider-custom divider-light">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!--This code creates the subheading underneath the line dividers-->
-                <p class="masthead-subheading font-weight-light mb-0">UX Researcher</p>
-            </div>
-        </header>
-        <section class="text-center">
-            <div class="container d-flex justify-content-center">
-                 <div class="col-md-8 col-lg-6">
-                    <img src="D40.jpg" alt="Your Name" class="img-fluid mb-4" style="max-width: 450px; margin-top: 50px; border-radius: 20px;">
-                    <p>
-                        Hi! I'm Rachita. I love digital collages, K-Pop, reading and watching
-                        cartoons. YouTube is one of my best friends and mentors. I have a
-                        love hate relationship with ice cream. My favourite movie is "Only Yesterday"
-                    </p>
-                </div>
-            </div>
-        </section> 
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rachita Bisht — UX Researcher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+           BASE
+        ============================================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+        :root {
+            --bg:       #0C0B09;
+            --surface:  #141310;
+            --card:     #1A1815;
+            --cream:    #F2EDD4;
+            --coral:    #FF4D2E;
+            --yellow:   #FFE14D;
+            --lime:     #B8FF3D;
+            --muted:    rgba(242, 237, 212, 0.42);
+            --faint:    rgba(242, 237, 212, 0.08);
+            --border:   rgba(242, 237, 212, 0.1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ── Grain overlay ── */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.038;
+            pointer-events: none;
+            z-index: 9000;
+            animation: grain 8s steps(10) infinite;
+        }
+        @keyframes grain {
+            0%,100% { transform:translate(0,0)      }
+            10%      { transform:translate(-2%,-3%)  }
+            20%      { transform:translate(1%,2%)    }
+            30%      { transform:translate(-3%,1%)   }
+            40%      { transform:translate(2%,-1%)   }
+            50%      { transform:translate(-1%,3%)   }
+            60%      { transform:translate(3%,-2%)   }
+            70%      { transform:translate(-2%,1%)   }
+            80%      { transform:translate(1%,-3%)   }
+            90%      { transform:translate(-3%,2%)   }
+        }
+
+        /* ── Custom Cursor ── */
+        .cursor {
+            width: 10px; height: 10px;
+            background: var(--coral);
+            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: normal;
+            transition: transform 0.1s ease, background 0.25s ease, width 0.25s ease, height 0.25s ease;
+        }
+        .cursor-ring {
+            width: 34px; height: 34px;
+            border: 1.5px solid rgba(242,237,212,0.5);
+            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.25s;
+        }
+
+        /* ============================================================
+           NAVIGATION
+        ============================================================ */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 22px 52px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(12,11,9,0.85) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .nav-logo {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 15px; font-weight: 800;
+            letter-spacing: 0.06em;
+            color: var(--cream);
+            text-decoration: none;
+            position: relative; z-index: 1;
+        }
+        .nav-logo span { color: var(--coral); }
+        .nav-links {
+            display: flex; gap: 40px;
+            list-style: none;
+            position: relative; z-index: 1;
+        }
+        .nav-links a {
+            font-size: 12px; font-weight: 500;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.2s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute; bottom: -3px; left: 0;
+            width: 0; height: 1px;
+            background: var(--coral);
+            transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .nav-links a:hover { color: var(--cream); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* ============================================================
+           HERO
+        ============================================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 0 52px 88px;
+            position: relative; overflow: hidden;
+        }
+
+        /* Big background number */
+        .hero-bg-num {
+            position: absolute;
+            top: -0.05em; right: -0.02em;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(260px, 30vw, 480px);
+            font-weight: 800;
+            color: rgba(242, 237, 212, 0.028);
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+            letter-spacing: -0.05em;
+        }
+
+        /* Floating decorations */
+        .deco {
+            position: absolute;
+            pointer-events: none;
+            user-select: none;
+        }
+        .deco-star-1 {
+            top: 28%; left: 4%;
+            font-size: 22px; color: var(--yellow);
+            animation: floatA 5s ease-in-out infinite;
+        }
+        .deco-star-2 {
+            top: 16%; left: 52%;
+            font-size: 14px; color: var(--coral);
+            animation: floatB 4s ease-in-out infinite 1s;
+        }
+        .deco-star-3 {
+            bottom: 22%; left: 40%;
+            font-size: 10px; color: var(--lime);
+            animation: floatA 6s ease-in-out infinite 2s;
+        }
+        @keyframes floatA { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-14px) rotate(18deg)} }
+        @keyframes floatB { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-10px) rotate(-12deg)} }
+
+        /* Photo */
+        .hero-photo {
+            position: absolute;
+            top: 11%; right: 7%;
+            width: clamp(220px, 24vw, 340px);
+            border-radius: 6px;
+            overflow: hidden;
+            transform: rotate(2.5deg);
+            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+            animation: photoIn 1s cubic-bezier(0.16,1,0.3,1) 0.7s both;
+        }
+        .hero-photo img {
+            width: 100%; display: block;
+            aspect-ratio: 3/4; object-fit: cover; object-position: top center;
+        }
+        .hero-photo-tag {
+            position: absolute;
+            bottom: 14px; left: 50%;
+            transform: translateX(-50%);
+            background: var(--yellow);
+            color: var(--bg);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+        @keyframes photoIn {
+            from { opacity: 0; transform: rotate(2.5deg) translateY(32px); }
+            to   { opacity: 1; transform: rotate(2.5deg) translateY(0); }
+        }
+
+        /* Hero text */
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 7px;
+            background: var(--coral); color: var(--bg);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 0.16em; text-transform: uppercase;
+            padding: 5px 13px; border-radius: 100px;
+            margin-bottom: 26px; width: fit-content;
+            animation: slideUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both;
+        }
+        .hero-badge .dot { width: 5px; height: 5px; background: var(--bg); border-radius: 50%; animation: blink 2s ease-in-out infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+        .hero-name {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(72px, 12.5vw, 168px);
+            font-weight: 800;
+            line-height: 0.88;
+            letter-spacing: -0.035em;
+            color: var(--cream);
+            animation: slideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.28s both;
+        }
+        .hero-name .italic {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--coral);
+        }
+
+        .hero-footer {
+            margin-top: 36px;
+            display: flex; align-items: center; gap: 48px;
+            animation: slideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.42s both;
+        }
+        .hero-tagline {
+            font-size: clamp(13px, 1.4vw, 17px);
+            font-weight: 300;
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 360px;
+        }
+        .hero-cta {
+            display: inline-flex; align-items: center; gap: 11px;
+            border: 1px solid var(--border);
+            color: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            padding: 14px 26px; border-radius: 3px;
+            text-decoration: none; white-space: nowrap;
+            transition: background 0.3s, border-color 0.3s, color 0.3s;
+        }
+        .hero-cta .arr { transition: transform 0.3s; }
+        .hero-cta:hover { background: var(--cream); color: var(--bg); border-color: var(--cream); }
+        .hero-cta:hover .arr { transform: translate(4px,-4px); }
+
+        @keyframes slideUp {
+            from { opacity:0; transform:translateY(44px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+
+        /* ============================================================
+           MARQUEE
+        ============================================================ */
+        .marquee-wrap {
+            padding: 18px 0;
+            background: var(--coral);
+            overflow: hidden;
+        }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: ticker 22s linear infinite;
+        }
+        .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+        .marquee-item {
+            display: flex; align-items: center; gap: 22px;
+            padding-right: 22px;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 13px; font-weight: 800;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--bg); white-space: nowrap;
+        }
+        .marquee-item .sep { width: 4px; height: 4px; background: var(--bg); border-radius: 50%; opacity: 0.45; }
+        @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+        /* ============================================================
+           SHARED SECTION STYLES
+        ============================================================ */
+        .section { padding: 120px 52px; }
+        .section-tag {
+            display: flex; align-items: center; gap: 16px;
+            margin-bottom: 60px;
+        }
+        .section-num {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic; font-size: 13px; color: var(--coral);
+        }
+        .section-label {
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--muted);
+        }
+        .section-rule { flex: 1; height: 1px; background: var(--border); }
+
+        /* ============================================================
+           WORK SECTION
+        ============================================================ */
+        #work { background: var(--bg); }
+
+        .work-headline {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(40px, 5.5vw, 80px);
+            font-weight: 800; line-height: 1.0;
+            letter-spacing: -0.025em;
+            margin-bottom: 64px;
+        }
+        .work-headline em {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400; font-style: italic;
+            color: var(--yellow);
+        }
+
+        /* Bento grid */
+        .bento {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 3px;
+        }
+        .bento-card {
+            background: var(--card);
+            padding: 44px;
+            position: relative; overflow: hidden;
+        }
+        .bento-card:nth-child(1) { grid-row: span 2; }
+
+        /* Color flood on hover */
+        .bento-card::after {
+            content: '';
+            position: absolute; inset: 0;
+            transform: scaleY(0); transform-origin: bottom;
+            transition: transform 0.55s cubic-bezier(0.16,1,0.3,1);
+        }
+        .bento-card:nth-child(1)::after { background: var(--coral); }
+        .bento-card:nth-child(2)::after { background: var(--yellow); }
+        .bento-card:nth-child(3)::after { background: var(--lime); }
+        .bento-card:hover::after { transform: scaleY(1); }
+
+        /* All direct children sit above ::after */
+        .bento-card > * { position: relative; z-index: 1; }
+
+        .card-num {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic; font-size: 12px;
+            color: var(--muted);
+            display: block; margin-bottom: 36px;
+            transition: color 0.3s;
+        }
+        .card-title {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(22px, 2.6vw, 38px);
+            font-weight: 700; line-height: 1.1;
+            letter-spacing: -0.015em;
+            color: var(--cream);
+            margin-bottom: 14px;
+            transition: color 0.3s;
+        }
+        .card-desc {
+            font-size: 13px; line-height: 1.75;
+            color: var(--muted);
+            margin-bottom: 28px;
+            transition: color 0.3s;
+        }
+        .card-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+        .card-tags span {
+            font-size: 10px; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 3px 9px; border-radius: 100px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .card-arrow {
+            position: absolute; bottom: 44px; right: 44px;
+            width: 38px; height: 38px;
+            border: 1px solid var(--border); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px; color: var(--cream);
+            transition: all 0.3s;
+        }
+        .bento-card:hover .card-title,
+        .bento-card:hover .card-desc,
+        .bento-card:hover .card-num { color: var(--bg); }
+        .bento-card:hover .card-tags span { color: rgba(12,11,9,0.7); border-color: rgba(12,11,9,0.2); }
+        .bento-card:hover .card-arrow { background: var(--bg); border-color: var(--bg); color: var(--cream); transform: translate(4px,-4px); }
+
+        /* ============================================================
+           ABOUT SECTION
+        ============================================================ */
+        #about { background: var(--surface); }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 80px; align-items: start;
+        }
+
+        /* Photo side */
+        .about-photo-wrap { position: relative; }
+        .about-photo {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover; object-position: top;
+            border-radius: 4px;
+            display: block;
+        }
+        .about-sticker {
+            position: absolute;
+            bottom: -18px; right: -18px;
+            background: var(--yellow); color: var(--bg);
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 11px; font-weight: 800;
+            letter-spacing: 0.07em; text-transform: uppercase;
+            padding: 10px 18px; border-radius: 3px;
+            transform: rotate(-3.5deg);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+        }
+        .about-line {
+            position: absolute;
+            top: 50%; left: -28px; transform: translateY(-50%);
+            width: 1px; height: 60%;
+            background: linear-gradient(to bottom, transparent, var(--coral), transparent);
+        }
+
+        /* Content side */
+        .about-heading {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(30px, 3.8vw, 54px);
+            font-weight: 800; line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 28px;
+        }
+        .about-heading em {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400; font-style: italic;
+            color: var(--coral);
+        }
+        .about-bio {
+            font-size: 15px; line-height: 1.85;
+            color: var(--muted); margin-bottom: 44px;
+        }
+        .about-bio strong { color: var(--cream); font-weight: 600; }
+
+        .interests {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 10px; margin-bottom: 44px;
+        }
+        .interest {
+            background: var(--faint);
+            border: 1px solid var(--border);
+            padding: 12px 16px; border-radius: 4px;
+            display: flex; align-items: center; gap: 9px;
+            font-size: 13px; font-weight: 500;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .interest:hover { background: rgba(242,237,212,0.12); border-color: rgba(242,237,212,0.2); }
+        .interest .ico { font-size: 17px; }
+
+        .currently {
+            border-left: 2px solid var(--coral);
+            padding-left: 20px;
+        }
+        .currently-label {
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--coral); margin-bottom: 8px;
+        }
+        .currently-text {
+            font-size: 14px; line-height: 1.65; color: var(--muted);
+        }
+
+        /* ============================================================
+           SKILLS SECTION
+        ============================================================ */
+        #skills { background: var(--bg); }
+
+        .skills-headline {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(36px, 5vw, 72px);
+            font-weight: 800; line-height: 1.0;
+            letter-spacing: -0.02em;
+            margin-bottom: 60px;
+        }
+        .skills-headline em {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400; font-style: italic;
+            color: var(--lime);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+        }
+        .skill-block {
+            background: var(--card); padding: 38px;
+        }
+        .skill-block-title {
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--coral); margin-bottom: 22px;
+        }
+        .skill-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+        .skill-list li {
+            font-size: 14px; color: var(--cream);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .skill-list li::before { content: '✦'; font-size: 7px; color: var(--muted); }
+
+        /* ============================================================
+           CONTACT SECTION
+        ============================================================ */
+        #contact {
+            background: var(--surface);
+            text-align: center;
+            padding: 160px 52px;
+        }
+        .contact-eyebrow {
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 0.25em; text-transform: uppercase;
+            color: var(--coral); margin-bottom: 28px;
+        }
+        .contact-big {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(48px, 8.5vw, 128px);
+            font-weight: 800; line-height: 0.93;
+            letter-spacing: -0.035em;
+            margin-bottom: 52px;
+        }
+        .contact-big em {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400; font-style: italic;
+            color: var(--yellow);
+        }
+        .contact-links {
+            display: flex; align-items: center;
+            justify-content: center;
+            gap: 28px; flex-wrap: wrap;
+        }
+        .contact-link {
+            display: inline-flex; align-items: center; gap: 7px;
+            font-size: 13px; font-weight: 500;
+            color: var(--cream); text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 3px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .contact-link:hover { color: var(--coral); border-color: var(--coral); }
+
+        /* ============================================================
+           FOOTER
+        ============================================================ */
+        footer {
+            padding: 28px 52px;
+            border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .footer-copy {
+            font-size: 11px; color: var(--muted);
+        }
+        .footer-mark {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 13px; font-weight: 800;
+            color: var(--cream);
+        }
+        .footer-mark span { color: var(--coral); }
+
+        /* ============================================================
+           SCROLL REVEAL
+        ============================================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(38px);
+            transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1),
+                        transform 0.85s cubic-bezier(0.16,1,0.3,1);
+        }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
+        @media (max-width: 960px) {
+            nav { padding: 20px 28px; }
+            .section { padding: 88px 28px; }
+            .hero { padding: 0 28px 68px; }
+            .hero-photo { width: clamp(160px, 36vw, 240px); top: 9%; right: 3%; }
+            .bento { grid-template-columns: 1fr; }
+            .bento-card:nth-child(1) { grid-row: span 1; }
+            .about-grid { grid-template-columns: 1fr; gap: 52px; }
+            .about-line { display: none; }
+            .skills-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .hero-footer { flex-direction: column; align-items: flex-start; gap: 18px; }
+            .interests { grid-template-columns: 1fr; }
+            footer { flex-direction: column; gap: 12px; text-align: center; }
+            #contact { padding: 100px 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav>
+    <a class="nav-logo" href="#home">RB<span> ✦</span></a>
+    <ul class="nav-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home">
+    <div class="hero-bg-num">UX</div>
+
+    <!-- Floating decorations -->
+    <div class="deco deco-star-1">✦</div>
+    <div class="deco deco-star-2">★</div>
+    <div class="deco deco-star-3">✦</div>
+
+    <!-- Photo -->
+    <div class="hero-photo">
+        <img src="D40.jpg" alt="Rachita Bisht">
+        <div class="hero-photo-tag">That's me ↑</div>
+    </div>
+
+    <!-- Text content -->
+    <div class="hero-badge"><div class="dot"></div>Open to opportunities</div>
+
+    <h1 class="hero-name">
+        Rachita<br>
+        <span class="italic">Bisht</span>
+    </h1>
+
+    <div class="hero-footer">
+        <p class="hero-tagline">
+            UX Researcher. I turn messy human behaviour into clear, actionable insights that make products actually work.
+        </p>
+        <a href="#work" class="hero-cta">
+            See my work
+            <span class="arr">↗</span>
+        </a>
+    </div>
+</section>
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-track">
+        <div class="marquee-item">UX Research <span class="sep"></span></div>
+        <div class="marquee-item">User Interviews <span class="sep"></span></div>
+        <div class="marquee-item">Usability Testing <span class="sep"></span></div>
+        <div class="marquee-item">Affinity Mapping <span class="sep"></span></div>
+        <div class="marquee-item">Journey Mapping <span class="sep"></span></div>
+        <div class="marquee-item">Design Thinking <span class="sep"></span></div>
+        <div class="marquee-item">Mental Models <span class="sep"></span></div>
+        <div class="marquee-item">Rachita Bisht ✦ <span class="sep"></span></div>
+        <!-- duplicate for seamless loop -->
+        <div class="marquee-item">UX Research <span class="sep"></span></div>
+        <div class="marquee-item">User Interviews <span class="sep"></span></div>
+        <div class="marquee-item">Usability Testing <span class="sep"></span></div>
+        <div class="marquee-item">Affinity Mapping <span class="sep"></span></div>
+        <div class="marquee-item">Journey Mapping <span class="sep"></span></div>
+        <div class="marquee-item">Design Thinking <span class="sep"></span></div>
+        <div class="marquee-item">Mental Models <span class="sep"></span></div>
+        <div class="marquee-item">Rachita Bisht ✦ <span class="sep"></span></div>
+    </div>
+</div>
+
+<!-- ═══ WORK ═══ -->
+<section class="section" id="work">
+    <div class="section-tag reveal">
+        <span class="section-num">01</span>
+        <span class="section-label">Selected Work</span>
+        <div class="section-rule"></div>
+    </div>
+
+    <h2 class="work-headline reveal">
+        Things I've<br><em>figured out</em><br>for people
+    </h2>
+
+    <div class="bento">
+        <!-- Card 1: tall -->
+        <div class="bento-card reveal">
+            <span class="card-num">Project 01</span>
+            <h3 class="card-title">Add Your First Case Study Here</h3>
+            <p class="card-desc">
+                Swap this with a 2–3 line summary: what you set out to learn, how you researched it, and what changed as a result. Real numbers make it sing.
+            </p>
+            <div class="card-tags">
+                <span>User Interviews</span>
+                <span>Affinity Mapping</span>
+                <span>Synthesis</span>
+            </div>
+            <div class="card-arrow">↗</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bento-card reveal">
+            <span class="card-num">Project 02</span>
+            <h3 class="card-title">Add Your Second Case Study</h3>
+            <p class="card-desc">Who were the users? What did you test? What changed?</p>
+            <div class="card-tags">
+                <span>Usability Testing</span>
+                <span>Journey Mapping</span>
+            </div>
+            <div class="card-arrow">↗</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bento-card reveal">
+            <span class="card-num">Project 03</span>
+            <h3 class="card-title">Add Your Third Case Study</h3>
+            <p class="card-desc">Research question → method → insight → impact.</p>
+            <div class="card-tags">
+                <span>Contextual Inquiry</span>
+                <span>Heuristic Eval</span>
+            </div>
+            <div class="card-arrow">↗</div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="section" id="about">
+    <div class="section-tag reveal">
+        <span class="section-num">02</span>
+        <span class="section-label">About</span>
+        <div class="section-rule"></div>
+    </div>
+
+    <div class="about-grid">
+        <div class="about-photo-wrap reveal">
+            <div class="about-line"></div>
+            <img class="about-photo" src="D40.jpg" alt="Rachita Bisht">
+            <div class="about-sticker">UX Researcher</div>
+        </div>
+
+        <div class="reveal">
+            <h2 class="about-heading">
+                Human first,<br><em>researcher always</em>
+            </h2>
+            <p class="about-bio">
+                Hi! I'm <strong>Rachita</strong>. I bridge the gap between what people say and what they actually do — and turn that into designs that just <em>work</em>.<br><br>
+                Outside of research, I love digital collages, K-Pop, reading, and watching cartoons. YouTube is one of my best friends and mentors. I have a love-hate relationship with ice cream. My favourite movie is <strong>Only Yesterday</strong>.
+            </p>
+
+            <div class="interests">
+                <div class="interest"><span class="ico">🎵</span> K-Pop</div>
+                <div class="interest"><span class="ico">✂️</span> Digital Collages</div>
+                <div class="interest"><span class="ico">📺</span> Cartoons</div>
+                <div class="interest"><span class="ico">📚</span> Reading</div>
+                <div class="interest"><span class="ico">▶️</span> YouTube</div>
+                <div class="interest"><span class="ico">🎬</span> Only Yesterday</div>
+            </div>
+
+            <div class="currently">
+                <p class="currently-label">Currently</p>
+                <p class="currently-text">Researching, learning, and looking for the next great problem to solve with people at the centre.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ SKILLS ═══ -->
+<section class="section" id="skills">
+    <div class="section-tag reveal">
+        <span class="section-num">03</span>
+        <span class="section-label">Toolkit</span>
+        <div class="section-rule"></div>
+    </div>
+
+    <h2 class="skills-headline reveal">
+        My research<br><em>toolkit</em>
+    </h2>
+
+    <div class="skills-grid reveal">
+        <div class="skill-block">
+            <p class="skill-block-title">Research Methods</p>
+            <ul class="skill-list">
+                <li>User Interviews</li>
+                <li>Contextual Inquiry</li>
+                <li>Usability Testing</li>
+                <li>Surveys & Questionnaires</li>
+                <li>Diary Studies</li>
+            </ul>
+        </div>
+        <div class="skill-block">
+            <p class="skill-block-title">Analysis & Synthesis</p>
+            <ul class="skill-list">
+                <li>Affinity Mapping</li>
+                <li>Thematic Analysis</li>
+                <li>Journey Mapping</li>
+                <li>Persona Development</li>
+                <li>Mental Models</li>
+            </ul>
+        </div>
+        <div class="skill-block">
+            <p class="skill-block-title">Tools</p>
+            <ul class="skill-list">
+                <li>Figma</li>
+                <li>Maze</li>
+                <li>Dovetail</li>
+                <li>Miro</li>
+                <li>Notion</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+    <p class="contact-eyebrow">Let's Connect</p>
+    <h2 class="contact-big reveal">
+        Let's make<br>something <em>real</em>
+    </h2>
+    <div class="contact-links reveal">
+        <!-- Update these with your actual email, LinkedIn, resume link -->
+        <a class="contact-link" href="mailto:your@email.com">your@email.com ↗</a>
+        <a class="contact-link" href="#" target="_blank">LinkedIn ↗</a>
+        <a class="contact-link" href="#" target="_blank">Resume ↗</a>
+    </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+    <span class="footer-copy">© 2025 Rachita Bisht</span>
+    <span class="footer-mark">RB<span> ✦</span></span>
+</footer>
+
+<script>
+    /* ── Custom Cursor ── */
+    const cur  = document.getElementById('cur');
+    const ring = document.getElementById('ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        cur.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+    });
+
+    (function animRing() {
+        rx += (mx - rx - 17) * 0.11;
+        ry += (my - ry - 17) * 0.11;
+        ring.style.transform = `translate(${rx}px, ${ry}px)`;
+        requestAnimationFrame(animRing);
+    })();
+
+    document.querySelectorAll('a, button, .bento-card, .interest').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cur.style.transform  = `translate(${mx - 5}px, ${my - 5}px) scale(2.5)`;
+            cur.style.background = 'var(--yellow)';
+            ring.style.borderColor = 'rgba(242,237,212,0.25)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cur.style.transform  = `translate(${mx - 5}px, ${my - 5}px) scale(1)`;
+            cur.style.background = 'var(--coral)';
+            ring.style.borderColor = 'rgba(242,237,212,0.5)';
+        });
+    });
+
+    /* ── Scroll Reveal ── */
+    // Set stagger delay per element within its parent container
+    document.querySelectorAll('section, footer').forEach(parent => {
+        parent.querySelectorAll('.reveal').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.09}s`;
+        });
+    });
+
+    const ro = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                ro.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+</body>
 </html>
